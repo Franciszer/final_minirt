@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 13:21:10 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/12 10:48:44 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:56:53 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	add_square(t_obj *obj, t_square sq, t_vec3 yax)
 	t_list	*new;
 	t_tri	*t;
 	t_tri	*t1;
-	
+
 	if (!yax.x && !yax.y && !yax.z)
 		yax = get_axis(get_vec3(0, 0, 1), sq.n);
 	xax = normalize(cross_vec3(yax, sq.n));
@@ -62,7 +62,7 @@ static int	add_square(t_obj *obj, t_square sq, t_vec3 yax)
 int			get_square(double *vals, t_obj *obj)
 {
 	t_square	sq;
-	
+
 	sq.o.x = vals[0];
 	sq.o.y = vals[1];
 	sq.o.z = vals[2];
@@ -74,7 +74,7 @@ int			get_square(double *vals, t_obj *obj)
 	sq.rgb[1] = (unsigned char)vals[8];
 	sq.rgb[2] = (unsigned char)vals[9];
 	sq.n = normalize(sq.n);
-	add_square(obj, sq, get_vec3(0, 0, 0));	
+	add_square(obj, sq, get_vec3(0, 0, 0));
 	if (norm(sq.n) != 1)
 		return (0);
 	return (1);

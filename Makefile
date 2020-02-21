@@ -6,7 +6,7 @@
 #    By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/24 18:23:30 by franciszer        #+#    #+#              #
-#    Updated: 2020/02/21 18:51:08 by frthierr         ###   ########.fr        #
+#    Updated: 2020/02/21 22:35:44 by frthierr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC =	Sources/Error/print_error.c\
 		Sources/Utils_vec3/norm_vec3.c\
 		Sources/Utils_vec3/op_vec3.c\
 		Sources/Utils_vec3/opf_vec3.c\
-		Sources/Utils_vec3/printv.c\
 		Sources/Utils_vec3/normalize.c\
 		Sources/Utils_vec3/cross_vec3.c\
 		Sources/Utils_vec3/rot_vec3.c\
@@ -40,6 +39,7 @@ SRC =	Sources/Error/print_error.c\
 		Sources/Intersections/tri_inter.c\
 		Sources/Intersections/cyl_inter.c\
 		Sources/MLX/get_img_rt.c\
+		Sources/MLX/which_inter.c\
 		Sources/Canvas/inter_to_char.c\
 		Sources/Canvas/write_bmp.c\
 		Sources/Intersections/Light/get_pixel_light.c

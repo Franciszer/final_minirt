@@ -6,13 +6,13 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 16:17:38 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/18 16:40:46 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:06:53 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void		get_inter_sphere(t_inter *inter, void *obj_inter, t_vec3 o)
+void	get_inter_sphere(t_inter *inter, void *obj_inter, t_vec3 o)
 {
 	t_sphere	*sphere;
 	int			i;
@@ -51,10 +51,12 @@ void	get_inter_tri(t_inter *inter, void *obj_inter, t_vec3 o)
 {
 	t_tri	*tri;
 	int		i;
+	t_vec3	ab;
+	t_vec3	ac;
 
 	tri = (t_tri*)obj_inter;
-	t_vec3	ab = op_vec3(tri->b, '-', tri->a);
-	t_vec3	ac = op_vec3(tri->c, '-', tri->a);
+	ab = op_vec3(tri->b, '-', tri->a);
+	ac = op_vec3(tri->c, '-', tri->a);
 	inter->normal = normalize(cross_vec3(ab, ac));
 	if (norm(op_vec3(op_vec3(inter->point, '+', inter->normal), '-', o)) >\
 	norm(op_vec3(op_vec3(inter->point, '-', inter->normal), '-', o)))
@@ -74,7 +76,6 @@ void	get_norm_cyl(t_inter *inter, t_cyl *cyl, t_vec3 o)
 	double	radius;
 	t_vec3	half;
 
-	
 	half = op_vec3(cyl->o, '+', opf_vec3(cyl->d, '*', cyl->h / 2));
 	ctop = op_vec3(inter->point, '-', half);
 	radius = dot(ctop, cyl->d);
@@ -85,7 +86,7 @@ void	get_norm_cyl(t_inter *inter, t_cyl *cyl, t_vec3 o)
 		inter->normal = opf_vec3(inter->normal, '*', -1);
 }
 
-void		get_inter_cyl(t_inter *inter, void *obj_inter, t_vec3 o)
+void	get_inter_cyl(t_inter *inter, void *obj_inter, t_vec3 o)
 {
 	t_cyl	*cyl;
 	t_vec3	half;

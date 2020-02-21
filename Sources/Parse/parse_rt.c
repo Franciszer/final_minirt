@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:48:08 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/21 17:26:52 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:55:47 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ t_obj	*parse_rt(char *filename)
 	while (file[i])
 	{
 		if (!(id = check_line_rt(file, i)))
-		{
-			printf("%s\n", file[i]);
-			return ((t_obj *)exit_parse_rt("Line specifier not valid\n", obj, file));
-		}
+			return ((t_obj *)exit_parse_rt("Specifier not valid\n", obj, file));
 		if (!get_vals_rt(file, i, id, obj))
 			return ((t_obj *)exit_parse_rt(ERR_NVALS, obj, file));
 		i++;

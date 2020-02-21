@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 13:53:11 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/19 10:56:48 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:14:01 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,13 @@ t_inter		plane_iter(t_list *plane_list, t_vec3 cam_o, t_vec3 d,\
 	{
 		plane = (t_plane*)nav->content;
 		inter_curr = plane_inter(plane, cam_o, d);
-		if (inter_curr.d_to_o != INIT_D && (inter_min.d_to_o == INIT_D||\
-									inter_curr.d_to_o < inter_min.d_to_o))
-				inter_min = inter_curr;
+		if (inter_curr.d_to_o != INIT_D && (inter_min.d_to_o == INIT_D ||\
+			inter_curr.d_to_o < inter_min.d_to_o))
+			inter_min = inter_curr;
 		nav = nav->next;
 	}
 	return (inter_min);
 }
-
-/*t_inter		plane_inter(t_plane *plane, t_vec3 o, t_vec3 d)
-{
-	double	t;
-	double	nominator;
-	double	denominator;
-
-	nominator = dot((op_vec3(plane->o, '-', o)), normalize(plane->d));
-	denominator = dot(d, normalize(plane->d));
-	if (denominator)
-	{
-		t = nominator / denominator;
-		if (t > 0)
-		{
-			return (get_inter(op_vec3(o, '+', (opf_vec3(d, '*', t)))\
-			, o, PLANE, (void*)plane));
-		}
-	}
-	return (get_inter(o, o, 0, NULL));
-}
-*/
 
 t_inter		plane_inter(t_plane *plane, t_vec3 o, t_vec3 d)
 {

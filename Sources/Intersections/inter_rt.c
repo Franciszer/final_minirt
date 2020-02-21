@@ -6,13 +6,13 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 14:41:14 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/21 18:43:06 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:10:17 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_inter	**get_inter_screen(int w, int h)
+t_inter		**get_inter_screen(int w, int h)
 {
 	t_inter	**inter;
 	int		i;
@@ -29,7 +29,7 @@ t_inter	**get_inter_screen(int w, int h)
 	return (inter);
 }
 
-t_inter	**inter_rt(t_obj *obj, t_cam *cam, t_canvas canvas)
+t_inter		**inter_rt(t_obj *obj, t_cam *cam, t_canvas canvas)
 {
 	t_inter	**inter;
 	int		i;
@@ -40,22 +40,25 @@ t_inter	**inter_rt(t_obj *obj, t_cam *cam, t_canvas canvas)
 	i = 0;
 	while (i < obj->res->y)
 	{
-		j = 0;
-		while (j < obj->res->x)
+		j = -1;
+		while (++j < obj->res->x)
 		{
-			inter[i][j].d_to_o = INIT_D;
-			inter[i][j] = sphere_iter(obj->sphere_list, cam->o, canvas.screen[i][j], inter[i][j]);
-			inter[i][j] = plane_iter(obj->plane_list, cam->o, canvas.screen[i][j], inter[i][j]);
-			inter[i][j] = tri_iter(obj->tri_list, cam->o, canvas.screen[i][j], inter[i][j]);
-			inter[i][j] = cyl_iter(obj->cyl_list, cam->o, canvas.screen[i][j], inter[i][j]);
-			j++;
+			inter[i][j] = get_inter(cam->o, cam->o, 0, NULL);
+			inter[i][j] = sphere_iter(obj->sphere_list, cam->o,\
+							canvas.screen[i][j], inter[i][j]);
+			inter[i][j] = plane_iter(obj->plane_list, cam->o,\
+							canvas.screen[i][j], inter[i][j]);
+			inter[i][j] = tri_iter(obj->tri_list, cam->o,\
+							canvas.screen[i][j], inter[i][j]);
+			inter[i][j] = cyl_iter(obj->cyl_list, cam->o,\
+							canvas.screen[i][j], inter[i][j]);
 		}
 		i++;
 	}
 	return (inter);
 }
 
-int		is_clearpath(t_obj *obj, t_vec3 o, t_light *light)
+int			is_clearpath(t_obj *obj, t_vec3 o, t_light *light)
 {
 	t_inter	inter;
 	double	d_to_light;
@@ -74,7 +77,7 @@ int		is_clearpath(t_obj *obj, t_vec3 o, t_light *light)
 		return (0);
 }
 
-t_inter	**get_colors_rt(t_obj *obj)
+t_inter		**get_colors_rt(t_obj *obj)
 {
 	t_cam		*cam;
 	t_canvas	canvas;
@@ -90,7 +93,7 @@ t_inter	**get_colors_rt(t_obj *obj)
 	return (inter);
 }
 
-int	get_inters_rt(t_obj *obj)
+int			get_inters_rt(t_obj *obj)
 {
 	t_list		*nav;
 	t_cam		*cam;

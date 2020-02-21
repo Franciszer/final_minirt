@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 10:55:29 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/17 12:48:16 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:53:50 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		check_alight(t_list *alight_list)
 	if (alight_list)
 	{
 		len = ft_lstlen(alight_list);
-		if (len != 1)
+		if (len > 1)
 			return (0);
 		alight = (t_alight*)alight_list->content;
 		if (alight->brightness > 1 || alight->brightness < 0)

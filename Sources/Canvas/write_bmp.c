@@ -6,13 +6,13 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 11:04:05 by franciszer        #+#    #+#             */
-/*   Updated: 2020/02/21 19:17:29 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 21:20:00 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	get_bmpname(char **name)
+static int		get_bmpname(char **name)
 {
 	static int		n;
 	char			*sn;
@@ -27,14 +27,14 @@ static int	get_bmpname(char **name)
 	return (1);
 }
 
-static void	write_header_bmp(int fd, t_obj *obj)
+static void		write_header_bmp(int fd, t_obj *obj)
 {
 	static unsigned char	header[54] = {66, 77, 0, 0, 0, 0, 0, 0, 0, 0, 54, \
 		0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 24};
-	unsigned int	*filesize;
-	unsigned int	*width;
-	unsigned int	*height;
-	
+	unsigned int			*filesize;
+	unsigned int			*width;
+	unsigned int			*height;
+
 	filesize = (unsigned int*)&header[2];
 	*filesize = 54 + (obj->res->x * sizeof(char) + (4 - \
 						((obj->res->x * sizeof(char)) % 4)) % 4) * obj->res->y;
@@ -47,12 +47,13 @@ static void	write_header_bmp(int fd, t_obj *obj)
 
 static int		write_imgdata(t_obj *obj, unsigned char *img_data, int fd)
 {
-	int	i;
-	int	j;
-	static unsigned char zeroes[3] = {0, 0, 0};
-	int	z = 0;
+	int						i;
+	int						j;
+	static unsigned char	zeroes[3] = {0, 0, 0};
+	int						z;
 
 	j = obj->res->y;
+	z = 0;
 	while (j--)
 	{
 		i = 0;
@@ -64,16 +65,16 @@ static int		write_imgdata(t_obj *obj, unsigned char *img_data, int fd)
 			i++;
 		}
 		write(fd, zeroes, (4 - ((obj->res->x * sizeof(char)) % 4)) % 4);
-	}	
+	}
 	return (1);
 }
 
-int		write_bmp(t_obj *obj)
+int				write_bmp(t_obj *obj)
 {
-	int		fd;
-	char	*name;
+	int				fd;
+	char			*name;
 	unsigned char	*img_data;
-	t_list	*nav;
+	t_list			*nav;
 
 	nav = obj->inter_list;
 	while (nav)
@@ -86,7 +87,8 @@ int		write_bmp(t_obj *obj)
 			return (0);
 		}
 		write_header_bmp(fd, obj);
-		if (!(img_data = (unsigned char*)inter_to_char(obj, (t_inter**)nav->content)))
+		if (!(img_data = (unsigned char*)inter_to_char(obj,\
+		(t_inter**)nav->content)))
 			return (0);
 		write_imgdata(obj, img_data, fd);
 		nav = nav->next;

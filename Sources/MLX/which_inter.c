@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inter_to_char.c                                    :+:      :+:    :+:   */
+/*   which_inter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 13:47:16 by qfeuilla          #+#    #+#             */
-/*   Updated: 2020/02/21 21:13:44 by frthierr         ###   ########.fr       */
+/*   Created: 2020/02/21 22:33:27 by frthierr          #+#    #+#             */
+/*   Updated: 2020/02/21 22:33:29 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-unsigned char	*inter_to_char(t_obj *obj, t_inter **inter)
+t_inter	**which_inter(t_list *inter_list, int *n)
 {
-	int				i;
-	int				j;
-	int				z;
-	unsigned char	*colors;
+	t_list	*nav;
+	int		i;
 
-	z = obj->res->x * obj->res->y * 3;
-	colors = malloc(sizeof(char) * z);
 	i = 0;
-	while (i < obj->res->y)
+	nav = inter_list;
+	if (*n < 0)
+		*n = ft_lstlen(inter_list) - 1;
+	else if (*n > ft_lstlen(inter_list) - 1)
+		*n = 0;
+	i = 0;
+	while (nav->next)
 	{
-		j = obj->res->x - 1;
-		while (j != -1)
+		if (i == *n)
 		{
-			colors[--z] = inter[i][j].rgb[0];
-			colors[--z] = inter[i][j].rgb[1];
-			colors[--z] = inter[i][j].rgb[2];
-			j--;
+			return ((t_inter**)nav->content);
 		}
+		nav = nav->next;
 		i++;
 	}
-	return (colors);
+	return ((t_inter**)nav->content);
 }

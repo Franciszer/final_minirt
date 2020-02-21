@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 23:58:46 by franciszer        #+#    #+#             */
-/*   Updated: 2020/02/18 16:46:13 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/22 00:08:27 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ t_vec3			**get_canvas_rt(t_cam *cam, t_obj *obj)
 		j = 0;
 		while (j < obj->res->x)
 		{
-			canvas[i][j] = normalize(get_vec3(j - obj->res->x / 2, i - obj->res->y / 2,\
-			- (int)obj->res->x / (2 * tan(fov_rad / 2))));
-			canvas[i][j] = normalize(rot_vec3(canvas[i][j], get_vec3(0, 0, -1), cam->d));
+			canvas[i][j] = normalize(get_vec3(j - obj->res->x / 2, i - \
+			obj->res->y / 2, -(int)obj->res->x / (2 * tan(fov_rad / 2))));
+			canvas[i][j] = normalize(rot_vec3(canvas[i][j], get_vec3(0, \
+			0, -1), cam->d));
 			j++;
 		}
 		i++;

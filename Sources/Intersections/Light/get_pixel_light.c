@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 14:08:17 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 16:02:16 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:26:28 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	check_normal(t_inter *inter, t_light *light)
 
 	inv_norm = opf_vec3(inter->normal, '*', -1);
 	to_light = op_vec3(light->o, '-', inter->point);
-	if (dot(to_light, inter->normal) < dot(to_light, opf_vec3(inter->normal, '*', -1)))
+	if (dot(to_light, inter->normal) <\
+	dot(to_light, opf_vec3(inter->normal, '*', -1)))
 		inter->normal = inv_norm;
 }
 
@@ -35,21 +36,19 @@ static void	get_pixel_light(double *p_intensity, t_obj *obj, t_inter *inter)
 	{
 		light = (t_light*)nav->content;
 		i = -1;
+		p_brightness = 0;
 		check_normal(inter, light);
-		if (is_clearpath(obj, op_vec3(inter->point, '+', opf_vec3(inter->normal, '*', EPS)), light))
+		if (is_clearpath(obj, op_vec3(inter->point, '+',\
+		opf_vec3(inter->normal, '*', EPS)), light))
 		{
 			p_brightness = dot(normalize(op_vec3(light->o, '-', inter->point))\
 			, inter->normal) / norm2(op_vec3(light->o, '-', inter->point));
 		}
-		else
-			p_brightness = 0;
 		if (p_brightness < 0)
 			p_brightness = 0;
 		while (++i < 3)
-			//printf("%d: %f\n", i, p_intensity[i]);
-			p_intensity[i] += 10 * p_brightness * light->brightness * \
+			p_intensity[i] += 10 * p_brightness * light->brightness *\
 			(double)light->rgb[i] * (double)inter->rgb[i];
-		//printf("\n");
 		nav = nav->next;
 	}
 }

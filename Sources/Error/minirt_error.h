@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 14:30:07 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/12 10:26:53 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 21:21:48 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 # define ERR_RES_MUCH "There can only be one Resolution\n"
 
-#define ERR_NVALS "Wrong number of values\n"
-#define ERR_VALS "Wrong value\n"
+# define ERR_NVALS "Wrong number of values\n"
+# define ERR_VALS "Wrong value\n"
 
 int	print_error(char *error);
 

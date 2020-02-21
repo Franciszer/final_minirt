@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:11:28 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/21 19:19:49 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 22:32:30 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		deal_key(int key, void *param)
 		mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 		free_obj_rt(data->obj);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		system("leaks miniRT");
 		exit(0);
 	}
 	if (key == 48)
@@ -45,7 +44,8 @@ void	init_mlxdata(t_data *data, t_obj *obj)
 		obj->res->x, obj->res->y, "miniRT");
 }
 
-void	get_img_rt(unsigned char *colors, t_obj *obj, t_inter **inter, t_data *data)
+void	get_img_rt(unsigned char *colors, t_obj *obj,\
+		t_inter **inter, t_data *data)
 {
 	int	i;
 	int	j;
@@ -62,10 +62,10 @@ void	get_img_rt(unsigned char *colors, t_obj *obj, t_inter **inter, t_data *data
 		j = 0;
 		while (j < x)
 		{
-			colors[z++] = inter[i][j].rgb[2];
-			colors[z++] = inter[i][j].rgb[1];
-			colors[z++] = inter[i][j].rgb[0];
-			colors[z++] = 0;
+			*colors++ = inter[i][j].rgb[2];
+			*colors++ = inter[i][j].rgb[1];
+			*colors++ = inter[i][j].rgb[0];
+			*colors++ = 0;
 			j++;
 		}
 		i++;
@@ -73,28 +73,10 @@ void	get_img_rt(unsigned char *colors, t_obj *obj, t_inter **inter, t_data *data
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 }
 
-t_inter	**which_inter(t_list *inter_list, int *n)
+int		end(void *param)
 {
-	t_list	*nav;
-	int		i;
-
-	i = 0;
-	nav = inter_list; 
-	if (*n < 0)
-		*n = ft_lstlen(inter_list) - 1;
-	else if (*n > ft_lstlen(inter_list) - 1)
-		*n = 0;
-	i = 0;
-	while (nav->next)
-	{
-		if (i == *n)
-		{
-			return ((t_inter**)nav->content);
-		}
-		nav = nav->next;
-		i++;
-	}
-	return ((t_inter**)nav->content);
+	deal_key(53, param);
+	return (0);
 }
 
 int		display_rt(t_obj *obj)
@@ -115,6 +97,7 @@ int		display_rt(t_obj *obj)
 		return (0);
 	inter = which_inter(obj->inter_list, data.inter_n);
 	get_img_rt(data.cols, obj, inter, &data);
+	mlx_hook(data.win_ptr, 17, 1L << 0, end, &data);
 	mlx_key_hook(data.win_ptr, deal_key, &data);
 	mlx_loop(data.mlx_ptr);
 	return (1);
