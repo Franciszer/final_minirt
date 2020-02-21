@@ -6,7 +6,7 @@
 #    By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/24 18:23:30 by franciszer        #+#    #+#              #
-#    Updated: 2020/02/20 16:58:33 by frthierr         ###   ########.fr        #
+#    Updated: 2020/02/21 18:51:08 by frthierr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJ}
 			@make -C libft
-			@cc -fsanitize=address ${FLAGS} -I ./libft -I . -I /usr/local/include -L /usr/local/lib -lmlx  -framework OpenGL -framework Appkit ${OBJ} Sources/main.c libft/libft.a -o ${XNAME}
+			@cc ${FLAGS} -I ./libft -I . -I /usr/local/include -L /usr/local/lib -lmlx  -framework OpenGL -framework Appkit ${OBJ} Sources/main.c libft/libft.a -o ${XNAME}
 			@echo "MiniRT Done Yeah"
 clean:
 	@rm -rf ${OBJ}

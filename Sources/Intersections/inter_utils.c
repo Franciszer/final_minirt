@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 14:01:32 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 16:31:29 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:59:08 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_inter		get_inter(t_vec3 point, t_vec3 o, int id, void *obj_inter)
 	return (inter);
 }
 
-t_inter		**free_inter(t_inter **inter, int h_max)
+t_inter		**free_inter(t_inter  **inter, int h_max)
 {
 	int	i;
 
@@ -48,23 +48,23 @@ t_inter		**free_inter(t_inter **inter, int h_max)
 		free(inter[i]);
 		i++;
 	}
-	//free(inter);
+	free(inter);
 	return ((t_inter**)0);
 }
 
 void	free_inter_list(t_list *list, t_obj *obj)
 {
 	t_list	*nav;
-	t_inter	**inter;
+	t_list	*tmp;
 	int		h;
 
 	h = obj->res->y;
 	nav = list;
 	while (nav)
 	{
-		printf("nav: %p\n", nav->next);
-		inter = (t_inter**)nav->content;
-		free_inter(inter, h);
+		free_inter((t_inter**)nav->content, h);
+		tmp = nav;
 		nav = nav->next;
+		free(tmp);
 	}
 }

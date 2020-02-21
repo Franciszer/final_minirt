@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 17:10:32 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 17:01:29 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:12:59 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int ac, char **av)
 
 	if (ac == 2 || ac == 3)
 	{
-		if (!(obj = parse_rt(av[1])))
+		if (!is_rtfile(av[1]) || !(obj = parse_rt(av[1])))
 			return (0);
 		if (ac == 2)
 			display_rt(obj);
@@ -35,6 +35,7 @@ int		main(int ac, char **av)
 			else
 				print_error("Invalid argument\n");
 		}
+		system("leaks miniRT");
 		free_obj_rt(obj);
 	}
 	else

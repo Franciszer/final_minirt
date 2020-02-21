@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 10:11:28 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/19 21:24:12 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:19:49 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int		deal_key(int key, void *param)
 	t_data	*data;
 
 	data = (t_data*)param;
-	ft_putendl_fd(ft_itoa(key), 1);
 	if (key == 53)
 	{
 		mlx_destroy_image(data->mlx_ptr, data->img_ptr);
+		free_obj_rt(data->obj);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		system("leaks miniRT");
 		exit(0);
 	}
 	if (key == 48)
@@ -69,14 +70,6 @@ void	get_img_rt(unsigned char *colors, t_obj *obj, t_inter **inter, t_data *data
 		}
 		i++;
 	}
-	//int h = 0;
-	//PBM ICI OU DANS LA FONCTION LIGHT
-	//while (h < z)
-	//{
-	//	if (h % 4 != 3 && colors[h] != 6 && colors[h] != 1 && colors[h] != 3)
-	//		printf("%u\n", colors[h]);
-	//	h++;
-	//}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 }
 
@@ -86,7 +79,7 @@ t_inter	**which_inter(t_list *inter_list, int *n)
 	int		i;
 
 	i = 0;
-	nav = inter_list;
+	nav = inter_list; 
 	if (*n < 0)
 		*n = ft_lstlen(inter_list) - 1;
 	else if (*n > ft_lstlen(inter_list) - 1)
@@ -122,7 +115,6 @@ int		display_rt(t_obj *obj)
 		return (0);
 	inter = which_inter(obj->inter_list, data.inter_n);
 	get_img_rt(data.cols, obj, inter, &data);
-	//write_bmp(obj, "test.bmp", data.cols);
 	mlx_key_hook(data.win_ptr, deal_key, &data);
 	mlx_loop(data.mlx_ptr);
 	return (1);

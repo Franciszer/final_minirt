@@ -6,11 +6,29 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 15:48:08 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 16:54:08 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 17:26:52 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int		is_rtfile(char *filename)
+{
+	int	i;
+
+	i = 0;
+	while (filename[i])
+		i++;
+	i--;
+	if (i + 1 > 2)
+	{
+		if (filename[i--] == 't' && filename[i--] == 'r' &&\
+			filename[i] == '.')
+			return (1);
+	}
+	print_error("Not an .rt file\n");
+	return (0);
+}
 
 t_obj	*obj_init_rt(void)
 {

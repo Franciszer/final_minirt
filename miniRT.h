@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 09:58:48 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 17:01:22 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:39:04 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int		check_cam(t_list *);
 int		check_light(t_list *);
 int		check_plane(t_list *);
 int		check_cyl(t_list *);
+int		is_rtfile(char *filename);
 
 /*
 **	VECTOR_3 UTILS

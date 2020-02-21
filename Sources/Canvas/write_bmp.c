@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 11:04:05 by franciszer        #+#    #+#             */
-/*   Updated: 2020/02/20 17:01:14 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 19:17:29 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static int	get_bmpname(char **name)
 {
 	static int		n;
+	char			*sn;
 
-	if (!(*name = ft_strjoin(IMG_DIR, ft_itoa(n++))))
+	if (!(sn = ft_itoa(n++)))
 		return (0);
-	if (!(*name = ft_strjoin(*name, ".bmp")))
+	if (!(*name = ft_strjoin(IMG_DIR, sn)))
 		return (0);
+	if (!(*name = ft_strjoin_free(*name, ".bmp")))
+		return (0);
+	free(sn);
 	return (1);
 }
 
@@ -76,7 +80,6 @@ int		write_bmp(t_obj *obj)
 	{
 		if (!get_bmpname(&name))
 			return (0);
-		printf("NAME: %s\n", name);
 		if ((fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, \
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 1)
 		{
@@ -85,10 +88,10 @@ int		write_bmp(t_obj *obj)
 		write_header_bmp(fd, obj);
 		if (!(img_data = (unsigned char*)inter_to_char(obj, (t_inter**)nav->content)))
 			return (0);
-		printf("fd: %d\n", fd);
 		write_imgdata(obj, img_data, fd);
 		nav = nav->next;
-		//free(name);
+		free(img_data);
+		free(name);
 	}
 	return (1);
 }

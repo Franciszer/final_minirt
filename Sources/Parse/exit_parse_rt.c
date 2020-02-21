@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 16:24:26 by frthierr          #+#    #+#             */
-/*   Updated: 2020/02/20 16:47:42 by frthierr         ###   ########.fr       */
+/*   Updated: 2020/02/21 18:58:51 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	*free_return(void **p)
 
 void	*free_obj_rt(t_obj *obj)
 {
+	if (obj->inter_list)
+		free_inter_list(obj->inter_list, obj);
 	if (obj->res)
 		free(obj->res);
 	ft_lstclear(&obj->cam_list, free);
@@ -42,10 +44,8 @@ void	*free_obj_rt(t_obj *obj)
 	ft_lstclear(&obj->light_list, free);
 	ft_lstclear(&obj->sphere_list, free);
 	ft_lstclear(&obj->plane_list, free);
-	ft_lstclear(&obj->inter_list, free);
 	ft_lstclear(&obj->cyl_list, free);
 	ft_lstclear(&obj->tri_list, free);
-	//free_inter_list(obj->inter_list, obj);
 	free(obj);
 	return (NULL);
 }
